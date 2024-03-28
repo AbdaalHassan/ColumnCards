@@ -35,14 +35,19 @@
         >
           {{ modalLabel }}
         </label>
+
+        <!-- v-model creates a link between the  (value attribute) and data value in the Vue instance. -->
+        <!--  It automatically picks the correct way to update the element based on the input type. -->
         <input
           class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
+          v-model="inputValue"
         />
       </div>
 
       <div class="flex justify-end mt-8">
         <button
+          @click="createItem"
           class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           Create
@@ -55,6 +60,11 @@
 <script>
 export default {
   name: "Modal",
+  data() {
+    return {
+      inputValue: "",
+    };
+  },
   // Props for receiving values
   // String , vue js do type validation that these props only receive string values
   props: {
@@ -62,11 +72,17 @@ export default {
     modalLabel: String,
   },
   // methods
-  // this refer to current component 
+  // this refer to current component
   // this.emit it emits a custom event that can be listened in parent component where it calls
   methods: {
     closeModal() {
       this.$emit("close");
+    },
+    // when click on create button emit an event with its name and value in payload
+    createItem() {
+      this.$emit("create-item", this.inputValue);
+      this.inputValue = "";
+      this.closeModal();
     },
   },
 };

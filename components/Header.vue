@@ -20,6 +20,7 @@
     <Modal
       v-show="isModalVisible"
       @close="closeModal"
+      @create-item="handleCreateItem"
       :modalHeader="header"
       :modalLabel="label"
     />
@@ -49,6 +50,10 @@ export default {
     },
     closeModal() {
       this.isModalVisible = false;
+    },
+    // value parameter comes from the event value in 2nd argument
+    handleCreateItem(value) {
+      console.log(value);
     },
   },
 };
