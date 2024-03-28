@@ -12,7 +12,7 @@
             <h2 class="text-lg font-semibold">{{ column.title }}</h2>
             <div class="flex space-x-2">
               <button
-                @click="openCardModal"
+                @click="openCardModal(column._id)"
                 class="rounded-full p-2 bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-300"
               >
                 Add Card
@@ -27,11 +27,7 @@
 
           <!-- Body section with list -->
           <div>
-            <ul>
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-            </ul>
+            <CardList :columnId="column._id" />
           </div>
         </div>
       </div>
@@ -49,16 +45,19 @@
 
 <script>
 import Card from "./Card.vue";
+import CardList from "./CardList.vue";
 export default {
   name: "Columns",
   components: {
     Card,
+    CardList,
   },
 
   data() {
     return {
       columns: [],
       isCardModalVisible: false,
+      columnId: "",
     };
   },
   mounted() {
@@ -74,15 +73,31 @@ export default {
       }
     },
 
-    openCardModal() {
+    openCardModal(cId) {
       this.isCardModalVisible = true;
+      this.columnId = cId;
     },
     closeCardModal() {
       this.isCardModalVisible = false;
     },
 
     handleCreateCard(value) {
-      console.log(value);
+      const requestBody = {
+        column_id: this.columnId,
+        title: value.title,
+        description: value.description,
+      };
+
+      this.$axios
+        .post("/card", requestBody)
+        .then((response) => {
+          this.$emit("cardCreated", this.columnId);
+
+          console.log("Card created successfully:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error creating card:", error);
+        });
     },
   },
 };
