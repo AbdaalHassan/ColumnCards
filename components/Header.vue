@@ -48,12 +48,23 @@ export default {
     createColumn() {
       this.isModalVisible = true;
     },
+
     closeModal() {
       this.isModalVisible = false;
     },
+
     // value parameter comes from the event value in 2nd argument
-    handleCreateItem(value) {
-      console.log(value);
+    async handleCreateItem(value) {
+      try {
+        const response = await this.$axios.$post("/column", { title: value });
+        console.log(response.data);
+        this.isModalVisible = false;
+        // notify the parent component that column is created
+        // listen this event into parent 
+        this.$emit("column-created");
+      } catch (error) {
+        console.error("Error creating column:", error);
+      }
     },
   },
 };

@@ -82,7 +82,6 @@ export default {
     createItem() {
       this.$emit("create-item", this.inputValue);
       this.inputValue = "";
-      this.closeModal();
     },
   },
 };
