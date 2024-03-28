@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-300 h-screen">
+  <div class="bg-gray-300 min-h-screen">
     <!-- listen the header event and call a method -->
     <Header @column-created="handleColumnCreated" />
 

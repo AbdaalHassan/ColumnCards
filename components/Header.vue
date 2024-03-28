@@ -1,7 +1,7 @@
 <template>
   <!--  data() where is component states -->
   <div>
-    <header class="flex justify-around items-center px-4 py-2 bg-indigo-600">
+    <header class="flex justify-around items-center px-4 py-2 bg-indigo-400">
       <h1 class="text-lg font-bold text-white">Column Cards</h1>
       <button
         class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
