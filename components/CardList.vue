@@ -10,7 +10,7 @@
       </button>
     </div>
 
-    <ul>
+    <draggable v-model="cards" tag="ul">
       <li
         class="border m-2 p-2 text-base cursor-pointer"
         v-for="card in cards"
@@ -19,7 +19,7 @@
       >
         Title :{{ card.title }}
       </li>
-    </ul>
+    </draggable>
 
     <Card
       @closeCardModal="closeCardModal"
@@ -34,10 +34,13 @@
 
 <script>
 import Card from "./Card.vue";
+import draggable from "vuedraggable";
+
 export default {
   name: "CardList",
   components: {
     Card,
+    draggable,
   },
   props: {
     columnId: {
